@@ -62,23 +62,23 @@ export class TileType {
 }
 
 export class TileRatKing extends TileType {
-  allRats: TileType[];
+  allTiles: TileType[];
 
   constructor(
     id: number,
     energyChange: number,
     x: number,
     y: number,
-    allRats: TileType[]
+    allTiles: TileType[]
   ) {
     super(id, energyChange, x, y, CONST.TILE_IMAGE_RAT_KING);
-    this.allRats = allRats;
+    this.allTiles = allTiles;
   }
 
   // Clicking Rat King shows all rats on the board
   handleActivateSpecial = () => {
-    this.allRats.forEach((rat) => {
-      if (rat.id === CONST.ID_RAT) rat.isVisible = true;
+    this.allTiles.forEach((tile) => {
+      if (tile.id === CONST.ID_RAT) tile.isVisible = true;
     });
 
     return this.getDefaultReturnOnClick();
