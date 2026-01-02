@@ -24,11 +24,21 @@ export class TileType {
     this.y = y;
   }
 
+  // Transform this tile into another tile type
+  handleTransform = (id: number, energyChange: number, image: string) => {
+    this.id = id;
+    this.energyChange = energyChange;
+    this.image = image;
+    this.isVisible = true;
+    this.canCollectReward = true;
+    this.hasCollectedReward = false;
+  };
+
   getDefaultReturnOnClick = () => {
     return { id: this.id, energyChange: this.energyChange };
   };
 
-  handleCollectRewardSpecial = () => {
+  handleCollectRewardExtended = () => {
     return this.getDefaultReturnOnClick();
   };
 
@@ -36,17 +46,17 @@ export class TileType {
     this.image = "";
     this.canCollectReward = false;
     this.hasCollectedReward = true;
-    return this.handleCollectRewardSpecial();
+    return this.handleCollectRewardExtended();
   };
 
-  handleActivateSpecial = () => {
+  handleActivateExtended = () => {
     return this.getDefaultReturnOnClick();
   };
 
   handleActivate = () => {
     this.canCollectReward = true;
     this.isVisible = true;
-    return this.handleActivateSpecial();
+    return this.handleActivateExtended();
   };
 
   handleClick = () => {
@@ -76,7 +86,7 @@ export class TileRatKing extends TileType {
   }
 
   // Clicking Rat King shows all rats on the board
-  handleActivateSpecial = () => {
+  handleActivateExtended = () => {
     this.allTiles.forEach((tile) => {
       if (tile.id === CONST.ID_RAT) tile.isVisible = true;
     });
@@ -89,4 +99,17 @@ export class TileTitan extends TileType {
   constructor(id: number, energyChange: number, x: number, y: number) {
     super(id, energyChange, x, y, CONST.TILE_IMAGE_TITAN);
   }
+
+  // Collecting Reward from Titan changes the tile into an Energy Scroll
+  handleCollectRewardExtended = () => {
+    const defaultReturn = this.getDefaultReturnOnClick();
+
+    this.handleTransform(
+      CONST.ID_ENERGY_SCROLL,
+      CONST.ENERGY_CHANGE_ENERGY_SCROLL,
+      CONST.TILE_IMAGE_ENERGY_SCROLL
+    );
+
+    return defaultReturn;
+  };
 }
