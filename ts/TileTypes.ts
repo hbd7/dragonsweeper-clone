@@ -1,14 +1,19 @@
 import * as CONST from "../constants/Constants.js";
 
-export class TileType {
+export class TileBasic {
   id: number;
   energyChange: number;
   x: number;
   y: number;
   image: string;
+  uniqueId: string;
+
   isVisible = false;
   canCollectReward = false;
   hasCollectedReward = false;
+  isBlockedByGazer = false;
+  totalSurroundingDamage = 0;
+  surroundingTiles: number[] = [];
 
   constructor(
     id: number,
@@ -22,6 +27,7 @@ export class TileType {
     this.image = image;
     this.x = x;
     this.y = y;
+    this.uniqueId = `(${this.x},${this.y})`;
   }
 
   // Transform this tile into another tile type
@@ -60,7 +66,7 @@ export class TileType {
   };
 
   handleClick = () => {
-    console.log(`TileType ${this.id} clicked.`);
+    console.log(`Tile ID ${this.id} clicked.`);
 
     if (this.hasCollectedReward) return null;
 
@@ -71,17 +77,17 @@ export class TileType {
   };
 }
 
-export class TileRatKing extends TileType {
-  allTiles: TileType[];
+export class TileRatKing extends TileBasic {
+  allTiles: TileBasic[];
 
   constructor(
     id: number,
     energyChange: number,
     x: number,
     y: number,
-    allTiles: TileType[]
+    allTiles: TileBasic[]
   ) {
-    super(id, energyChange, x, y, CONST.TILE_IMAGE_RAT_KING);
+    super(id, energyChange, x, y, CONST.TILE_DATA[CONST.ID_RAT_KING].image);
     this.allTiles = allTiles;
   }
 
@@ -95,9 +101,9 @@ export class TileRatKing extends TileType {
   };
 }
 
-export class TileTitan extends TileType {
+export class TileTitan extends TileBasic {
   constructor(id: number, energyChange: number, x: number, y: number) {
-    super(id, energyChange, x, y, CONST.TILE_IMAGE_TITAN);
+    super(id, energyChange, x, y, CONST.TILE_DATA[CONST.ID_TITAN].image);
   }
 
   // Collecting Reward from Titan changes the tile into an Energy Scroll
@@ -106,9 +112,47 @@ export class TileTitan extends TileType {
 
     this.handleTransform(
       CONST.ID_ENERGY_SCROLL,
-      CONST.ENERGY_CHANGE_ENERGY_SCROLL,
-      CONST.TILE_IMAGE_ENERGY_SCROLL
+      CONST.TILE_DATA[CONST.ID_ENERGY_SCROLL].energyChange,
+      CONST.TILE_DATA[CONST.ID_ENERGY_SCROLL].image
     );
+
+    return defaultReturn;
+  };
+}
+
+export class TileVision extends TileBasic {
+  allTiles: TileBasic[];
+
+  constructor(
+    id: number,
+    energyChange: number,
+    x: number,
+    y: number,
+    allTiles: TileBasic[]
+  ) {
+    super(id, energyChange, x, y, CONST.TILE_DATA[CONST.ID_VISION].image);
+    this.allTiles = allTiles;
+    this.isVisible = true;
+  }
+
+  handleCollectRewardExtended = () => {
+    const defaultReturn = this.getDefaultReturnOnClick();
+
+    return defaultReturn;
+  };
+}
+
+export class TileDragon extends TileBasic {
+  constructor(id: number, energyChange: number, x: number, y: number) {
+    super(id, energyChange, x, y, CONST.TILE_DATA[CONST.ID_DRAGON].image);
+    this.isVisible = true;
+  }
+
+  handleCollectRewardExtended = () => {
+    const defaultReturn = this.getDefaultReturnOnClick();
+
+    // TODO: win
+    // Check to make sure not dead first before giving win
 
     return defaultReturn;
   };
