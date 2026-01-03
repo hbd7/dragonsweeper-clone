@@ -1,4 +1,4 @@
-import * as CONST from "../constants/Constants.ts";
+import * as CONST from "../constants/TileData.ts";
 
 let TILES_TO_GENERATE: number[] = Array(
   CONST.TILES_WIDTH * CONST.TILES_HEIGHT

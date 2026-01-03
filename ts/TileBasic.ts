@@ -1,4 +1,4 @@
-import * as CONST from "../constants/Constants.ts";
+import * as CONST from "../constants/TileData.ts";
 import { tilesClassArray } from "../components/TileList.tsx";
 import { Player } from "./Player.ts";
 

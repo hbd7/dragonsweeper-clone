@@ -1,5 +1,5 @@
 import TileBasic from "./TileBasic";
-import * as CONST from "../constants/Constants.ts";
+import * as CONST from "../constants/TileData.ts";
 
 export default class TileTitan extends TileBasic {
   hasSpawnedEnergyScroll = false;

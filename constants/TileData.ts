@@ -191,9 +191,3 @@ TILE_DATA[nextId].trackerGroups = [];
 TILE_DATA[nextId].name = "Wall";
 export const REWARD_WALL = 1;
 TILE_DATA[nextId].howManyToGenerate = 6;
-
-export const ID_CAN_COLLECT_REWARD = ++nextId;
-TILE_DATA[nextId].image = "./images/experience.png";
-TILE_DATA[nextId].energyChange = 0;
-TILE_DATA[nextId].trackerGroups = [];
-TILE_DATA[nextId].name = "Can Collect Reward";

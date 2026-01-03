@@ -1,5 +1,5 @@
 import TileBasic from "./TileBasic";
-import * as CONST from "../constants/Constants.ts";
+import * as CONST from "../constants/TileData.ts";
 
 export default class TileDragon extends TileBasic {
   constructor(id: number, energyChange: number, x: number, y: number) {

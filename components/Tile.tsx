@@ -1,6 +1,7 @@
 import { type MouseEvent, type JSX } from "react";
 import TileBasic from "../ts/TileBasic.ts";
-import * as CONST from "../constants/Constants.ts";
+import * as CONST from "../constants/TileData.ts";
+import { IMAGE_REWARD, IMAGE_REWARD_NAME } from "../constants/ImageData.ts";
 
 let canCollect = false;
 
@@ -21,11 +22,7 @@ const generateButtonInner = (tile: TileBasic) => {
   } else if (canCollect && tile.energyChange !== 0) {
     textJSX = (
       <span>
-        <img
-          src={CONST.TILE_DATA[CONST.ID_CAN_COLLECT_REWARD].image}
-          alt={CONST.TILE_DATA[CONST.ID_CAN_COLLECT_REWARD].name}
-        />{" "}
-        {tile.energyChange}
+        <img src={IMAGE_REWARD} alt={IMAGE_REWARD_NAME} /> {tile.energyChange}
       </span>
     );
   } else if (tile.image == "" && tile.totalSurroundingDamage > 0) {

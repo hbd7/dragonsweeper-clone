@@ -1,6 +1,6 @@
 import Tile from "./Tile.tsx";
 import generateTiles from "../ts/GenerateTiles.ts";
-import * as CONST from "../constants/Constants.ts";
+import * as CONST from "../constants/TileData.ts";
 import { useEffect, useState, type JSX } from "react";
 import TileBasic from "../ts/TileBasic.ts";
 import TileVision from "../ts/TileVision.ts";
