@@ -1,44 +1,90 @@
-const EXPERIENCE_TO_NEXT_LEVEL = [4];
+import type { Dispatch, SetStateAction } from "react";
+
+export const EXPERIENCE_TO_NEXT_LEVEL = [4];
 for (let i = 5; i < 100; i += 2) {
   EXPERIENCE_TO_NEXT_LEVEL.push(i);
 }
 
-const BASE_ENERGY = 5;
+export const BASE_ENERGY = 5;
 
-export const Player = {
-  energy: BASE_ENERGY,
-  maxEnergy: BASE_ENERGY,
-  level: 0,
-  experience: 0,
+export type SET_FUNCTION = Dispatch<SetStateAction<number>>;
+export type SET_FUNCTIONS = {
+  funcSetEnergy: SET_FUNCTION;
+  funcSetEnergyMax: SET_FUNCTION;
+  funcSetExperience: SET_FUNCTION;
+  funcSetExperienceMax: SET_FUNCTION;
+};
+export type PLAYER_DATA = {
+  energy: number;
+  energyMax: number;
+  experience: number;
+  experienceMax: number;
+};
+
+export default class Player {
+  energy = BASE_ENERGY;
+  maxEnergy = BASE_ENERGY;
+  level = 0;
+  experience = 0;
+
+  #funcSetEnergy;
+  #funcSetEnergyMax;
+  #funcSetExperience;
+  #funcSetExperienceMax;
+
+  constructor({
+    funcSetEnergy: funcSetEnergy,
+    funcSetEnergyMax: funcSetEnergyMax,
+    funcSetExperience: funcSetExperience,
+    funcSetExperienceMax: funcSetExperienceMax,
+  }: SET_FUNCTIONS) {
+    this.#funcSetEnergy = funcSetEnergy;
+    this.#funcSetEnergyMax = funcSetEnergyMax;
+    this.#funcSetExperience = funcSetExperience;
+    this.#funcSetExperienceMax = funcSetExperienceMax;
+  }
+
+  setEnergy(newEnergy: number) {
+    this.energy = newEnergy;
+    this.#funcSetEnergy(newEnergy);
+    return this;
+  }
 
   loseEnergy(energyLost: number) {
-    this.energy += energyLost;
+    this.setEnergy(this.energy + energyLost);
+
     if (this.energy < 0) {
       // Must be below 0. Being at 0 is not a lose condition
       // Implement lose the game
     }
-  },
+  }
 
   isAlive() {
     return this.energy >= 0;
-  },
+  }
+
+  setExperience(newExperience: number) {
+    this.experience = newExperience;
+    this.#funcSetExperience(newExperience);
+    return this;
+  }
 
   gainExperience(experienceGain: number) {
     this.experience += experienceGain;
-  },
+  }
 
   canLevelUp() {
     return this.experience >= EXPERIENCE_TO_NEXT_LEVEL[this.level];
-  },
+  }
 
   heal() {
     this.energy = this.maxEnergy;
-  },
+  }
 
   handleLevelUp() {
     this.experience -= EXPERIENCE_TO_NEXT_LEVEL[this.level];
     this.level++;
     this.maxEnergy = BASE_ENERGY + Math.floor(this.level / 2);
     this.heal();
-  },
-};
+  }
+}

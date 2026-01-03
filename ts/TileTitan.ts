@@ -1,11 +1,25 @@
 import TileBasic from "./TileBasic";
 import * as CONST from "../constants/TileData.ts";
+import type Player from "./Player.ts";
 
 export default class TileTitan extends TileBasic {
   hasSpawnedEnergyScroll = false;
 
-  constructor(id: number, energyChange: number, x: number, y: number) {
-    super(id, energyChange, x, y, CONST.TILE_DATA[CONST.ID_TITAN].image);
+  constructor(
+    player: Player,
+    id: number,
+    energyChange: number,
+    x: number,
+    y: number
+  ) {
+    super(
+      player,
+      id,
+      energyChange,
+      x,
+      y,
+      CONST.TILE_DATA[CONST.ID_TITAN].image
+    );
   }
 
   // Collecting Reward from Titan changes the tile into an Energy Scroll

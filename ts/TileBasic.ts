@@ -1,6 +1,6 @@
 import * as CONST from "../constants/TileData.ts";
 import { tilesClassArray } from "../components/TileList.tsx";
-import { Player } from "./Player.ts";
+import Player from "./Player.ts";
 
 export default class TileBasic {
   id: number;
@@ -19,7 +19,10 @@ export default class TileBasic {
   surroundingTiles: number[] = [];
   surroundingTilesExtended: number[] = [];
 
+  player: Player;
+
   constructor(
+    player: Player,
     id: number,
     energyChange: number,
     x: number,
@@ -33,6 +36,7 @@ export default class TileBasic {
     this.y = y;
     this.uniqueId = `(${this.x},${this.y})`;
     this.index = y * CONST.TILES_WIDTH + x;
+    this.player = player;
 
     if (!id) {
       this.hasCollectedReward = true;
@@ -97,7 +101,7 @@ export default class TileBasic {
       tilesClassArray[neighbour].totalSurroundingDamage += this.energyChange; // Energy Change is always negative so += instead of -=
     }
 
-    Player.loseEnergy(this.energyChange);
+    this.player.loseEnergy(this.energyChange);
 
     return this.handleActivateExtended();
   };
@@ -105,7 +109,7 @@ export default class TileBasic {
   handleClick = () => {
     if (this.id === CONST.ID_ENERGY_SCROLL) {
       if (this.isVisible) {
-        Player.heal();
+        this.player.heal();
         this.setToEmpty();
         return null;
       }

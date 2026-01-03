@@ -1,17 +1,26 @@
 import TileBasic from "./TileBasic";
 import * as CONST from "../constants/TileData.ts";
+import type Player from "./Player.ts";
 
 export default class TileRatKing extends TileBasic {
   allTiles: TileBasic[];
 
   constructor(
+    player: Player,
     id: number,
     energyChange: number,
     x: number,
     y: number,
     allTiles: TileBasic[]
   ) {
-    super(id, energyChange, x, y, CONST.TILE_DATA[CONST.ID_RAT_KING].image);
+    super(
+      player,
+      id,
+      energyChange,
+      x,
+      y,
+      CONST.TILE_DATA[CONST.ID_RAT_KING].image
+    );
     this.allTiles = allTiles;
   }
 

@@ -1,9 +1,23 @@
 import TileBasic from "./TileBasic";
 import * as CONST from "../constants/TileData.ts";
+import type Player from "./Player.ts";
 
 export default class TileDragon extends TileBasic {
-  constructor(id: number, energyChange: number, x: number, y: number) {
-    super(id, energyChange, x, y, CONST.TILE_DATA[CONST.ID_DRAGON].image);
+  constructor(
+    player: Player,
+    id: number,
+    energyChange: number,
+    x: number,
+    y: number
+  ) {
+    super(
+      player,
+      id,
+      energyChange,
+      x,
+      y,
+      CONST.TILE_DATA[CONST.ID_DRAGON].image
+    );
     this.isVisible = true;
   }
 

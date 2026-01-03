@@ -5,40 +5,6 @@ import { IMAGE_REWARD, IMAGE_REWARD_NAME } from "../constants/ImageData.ts";
 
 let canCollect = false;
 
-const generateButtonInner = (tile: TileBasic) => {
-  let imageJSX: JSX.Element | null = null;
-  let textJSX: JSX.Element | null = null;
-
-  if (!tile.isVisible) {
-    return <div className="tile-hidden"></div>;
-  }
-
-  if (tile.image !== "") {
-    imageJSX = <img src={tile.image} alt={CONST.TILE_DATA[tile.id].name} />;
-  }
-
-  if (tile.energyChange < 0) {
-    textJSX = <span>{Math.abs(tile.energyChange)}</span>;
-  } else if (canCollect && tile.energyChange !== 0) {
-    textJSX = (
-      <span>
-        <img src={IMAGE_REWARD} alt={IMAGE_REWARD_NAME} /> {tile.energyChange}
-      </span>
-    );
-  } else if (tile.image == "" && tile.totalSurroundingDamage > 0) {
-    textJSX = (
-      <span className="surrounding">{tile.totalSurroundingDamage}</span>
-    );
-  }
-
-  return (
-    <div className={canCollect ? "can-collect" : ""}>
-      {imageJSX}
-      {textJSX}
-    </div>
-  );
-};
-
 export default function Tile({
   tile,
   updateMe,
@@ -61,13 +27,47 @@ export default function Tile({
     e.preventDefault();
   };
 
+  const generateButtonInner = () => {
+    let imageJSX: JSX.Element | null = null;
+    let textJSX: JSX.Element | null = null;
+
+    if (!tile.isVisible) {
+      return <div className="tile-hidden"></div>;
+    }
+
+    if (tile.image !== "") {
+      imageJSX = <img src={tile.image} alt={CONST.TILE_DATA[tile.id].name} />;
+    }
+
+    if (tile.energyChange < 0) {
+      textJSX = <span>{Math.abs(tile.energyChange)}</span>;
+    } else if (canCollect && tile.energyChange !== 0) {
+      textJSX = (
+        <span>
+          <img src={IMAGE_REWARD} alt={IMAGE_REWARD_NAME} /> {tile.energyChange}
+        </span>
+      );
+    } else if (tile.image == "" && tile.totalSurroundingDamage > 0) {
+      textJSX = (
+        <span className="surrounding">{tile.totalSurroundingDamage}</span>
+      );
+    }
+
+    return (
+      <div className={canCollect ? "can-collect" : ""}>
+        {imageJSX}
+        {textJSX}
+      </div>
+    );
+  };
+
   return (
     <div
       className="tile"
       onClick={handleClick}
       onContextMenu={handleRightClick}
     >
-      {generateButtonInner(tile)}
+      {generateButtonInner()}
     </div>
   );
 }
