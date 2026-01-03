@@ -28,6 +28,8 @@ main {
   width: clamp(500px, 90vw, 800px);
   place-items: center;
   cursor: default;
+  -webkit-text-stroke: 4px #454545;
+  paint-order: stroke fill;
 }
 
 .tile-list {
@@ -131,6 +133,7 @@ main {
   font-size: 2rem;
   margin-left: 0.5rem;
   line-height: 0;
+  -webkit-text-stroke: 5px #323232;
 }
 
 .experience-bar img {
