@@ -1,6 +1,6 @@
 import type { PLAYER_DATA } from "../ts/Player";
 import type Player from "../ts/Player";
-import EnergyBar from "../components/EnergyBar.tsx";
+import EnergyList from "./EnergyList.tsx";
 
 export default function StatsBar({
   player,
@@ -11,7 +11,7 @@ export default function StatsBar({
 }) {
   return (
     <div>
-      <EnergyBar playerData={playerData} />
+      <EnergyList playerData={playerData} />
     </div>
   );
 }
