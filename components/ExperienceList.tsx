@@ -10,10 +10,10 @@ export default function ExperienceList({
   let outputJSX: JSX.Element[] = [];
 
   for (let i = 0; i < playerData.experienceMax; i++) {
-    outputJSX.push(<Experience isFull={i < playerData.experience} />);
+    outputJSX.push(<Experience key={i} isFull={i < playerData.experience} />);
   }
   if (playerData.experience >= playerData.experienceMax) {
-    outputJSX.push(<span>+</span>);
+    outputJSX.push(<span key="experiencePlusSign">+</span>);
   }
 
   return <div className="experience-bar">{outputJSX}</div>;

@@ -17,4 +17,4 @@ export const IMAGE_HERO = "./images/hero.png";
 export const IMAGE_HERO_NAME = "Hero";
 
 export const IMAGE_HERO_LEVEL = "./images/hero_level.png";
-export const IMAGE_HERO_LEVEL_NAME = "Hero Level";
+export const IMAGE_HERO_PANIC = "./images/hero_panic.png";

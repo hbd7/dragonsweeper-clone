@@ -10,7 +10,7 @@ export default function EnergyList({
   let outputJSX: JSX.Element[] = [];
 
   for (let i = 0; i < playerData.energyMax; i++) {
-    outputJSX.push(<Energy isFull={i < playerData.energy} />);
+    outputJSX.push(<Energy key={i} isFull={i < playerData.energy} />);
   }
 
   return <div className="energy-bar">{outputJSX}</div>;

@@ -1,12 +1,11 @@
 import "../css/App.css";
 import TileList from "../components/TileList.tsx";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import StatsBar from "../components/StatsBar.tsx";
 import Player, {
   BASE_ENERGY,
   EXPERIENCE_TO_NEXT_LEVEL,
   type PLAYER_DATA,
-  type SET_FUNCTION,
   type SET_FUNCTIONS,
 } from "../ts/Player.ts";
 
@@ -17,7 +16,6 @@ function App() {
   const [experienceMax, setExperienceMax] = useState<number>(
     EXPERIENCE_TO_NEXT_LEVEL[0]
   );
-  const [level, setLevel] = useState<number>(0);
 
   const funcs: SET_FUNCTIONS = {
     funcSetEnergy: setEnergy,
@@ -25,7 +23,12 @@ function App() {
     funcSetExperience: setExperience,
     funcSetExperienceMax: setExperienceMax,
   };
-  const player = new Player(funcs);
+
+  const playerRef = useRef<Player | null>(null);
+  if (playerRef.current === null) {
+    playerRef.current = new Player(funcs);
+  }
+  const player = playerRef.current;
 
   const playerData: PLAYER_DATA = {
     energy: energy,

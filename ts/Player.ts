@@ -26,6 +26,7 @@ export default class Player {
   maxEnergy = BASE_ENERGY;
   level = 0;
   experience = 0;
+  maxExperience = EXPERIENCE_TO_NEXT_LEVEL[0];
 
   #funcSetEnergy;
   #funcSetEnergyMax;
@@ -47,6 +48,13 @@ export default class Player {
   setEnergy(newEnergy: number) {
     this.energy = newEnergy;
     this.#funcSetEnergy(newEnergy);
+
+    return this;
+  }
+
+  setEnergyMax(newEnergyMax: number) {
+    this.maxEnergy = newEnergyMax;
+    this.#funcSetEnergyMax(newEnergyMax);
     return this;
   }
 
@@ -69,6 +77,12 @@ export default class Player {
     return this;
   }
 
+  setExperienceMax(newExperienceMax: number) {
+    this.maxExperience = newExperienceMax;
+    this.#funcSetExperienceMax(newExperienceMax);
+    return this;
+  }
+
   gainExperience(experienceGain: number) {
     this.setExperience(this.experience + Math.abs(experienceGain));
     return this;
@@ -84,9 +98,11 @@ export default class Player {
   }
 
   handleLevelUp() {
-    this.experience -= EXPERIENCE_TO_NEXT_LEVEL[this.level];
+    this.setExperience(this.experience - EXPERIENCE_TO_NEXT_LEVEL[this.level]);
     this.level++;
-    this.maxEnergy = BASE_ENERGY + Math.floor(this.level / 2);
+    this.setExperienceMax(EXPERIENCE_TO_NEXT_LEVEL[this.level]);
+
+    this.setEnergyMax(BASE_ENERGY + Math.floor(this.level / 2));
     this.heal();
   }
 }
