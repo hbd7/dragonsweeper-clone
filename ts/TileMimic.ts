@@ -18,7 +18,6 @@ export default class TileMimic extends TileBasic {
       y,
       CONST.TILE_DATA[CONST.ID_MIMIC].image
     );
-    this.isVisible = true;
   }
 
   handleActivateExtended = () => {
