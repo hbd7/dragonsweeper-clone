@@ -1,4 +1,6 @@
-import * as CONST from "../constants/Constants.js";
+import * as CONST from "../constants/Constants.ts";
+import { tilesClassArray } from "../components/TileList.tsx";
+import { Player } from "./Player.ts";
 
 export class TileBasic {
   id: number;
@@ -28,6 +30,10 @@ export class TileBasic {
     this.x = x;
     this.y = y;
     this.uniqueId = `(${this.x},${this.y})`;
+
+    if (!id) {
+      this.hasCollectedReward = true;
+    }
   }
 
   // Transform this tile into another tile type
@@ -40,6 +46,14 @@ export class TileBasic {
     this.hasCollectedReward = false;
   };
 
+  setToEmpty = () => {
+    this.id = 0;
+    this.image = "";
+    this.energyChange = 0;
+    this.canCollectReward = false;
+    this.hasCollectedReward = true;
+  };
+
   getDefaultReturnOnClick = () => {
     return { id: this.id, energyChange: this.energyChange };
   };
@@ -49,7 +63,7 @@ export class TileBasic {
   };
 
   handleCollectReward = () => {
-    this.image = "";
+    this.setToEmpty();
     this.canCollectReward = false;
     this.hasCollectedReward = true;
     return this.handleCollectRewardExtended();
@@ -62,18 +76,39 @@ export class TileBasic {
   handleActivate = () => {
     this.canCollectReward = true;
     this.isVisible = true;
+
+    for (const neighbour of this.surroundingTiles) {
+      tilesClassArray[neighbour].totalSurroundingDamage += this.energyChange; // Energy Change is always negative so += instead of -=
+    }
+
+    Player.loseEnergy(this.energyChange);
+
     return this.handleActivateExtended();
   };
 
   handleClick = () => {
-    console.log(`Tile ID ${this.id} clicked.`);
+    console.log(`Tile ${this.uniqueId} clicked.`);
 
     if (this.hasCollectedReward) return null;
 
-    if (this.isVisible && this.canCollectReward)
-      return this.handleCollectReward();
+    if (this.id === CONST.ID_ENERGY_SCROLL) {
+      if (this.isVisible) {
+        Player.heal();
+        this.setToEmpty();
+        return null;
+      }
 
-    return this.handleActivate();
+      this.isVisible = true;
+    }
+
+    let output;
+    if (this.isVisible && this.canCollectReward) {
+      output = this.handleCollectReward();
+    } else {
+      output = this.handleActivate();
+    }
+
+    return output;
   };
 }
 
@@ -102,6 +137,8 @@ export class TileRatKing extends TileBasic {
 }
 
 export class TileTitan extends TileBasic {
+  hasSpawnedEnergyScroll = false;
+
   constructor(id: number, energyChange: number, x: number, y: number) {
     super(id, energyChange, x, y, CONST.TILE_DATA[CONST.ID_TITAN].image);
   }
@@ -110,11 +147,21 @@ export class TileTitan extends TileBasic {
   handleCollectRewardExtended = () => {
     const defaultReturn = this.getDefaultReturnOnClick();
 
-    this.handleTransform(
-      CONST.ID_ENERGY_SCROLL,
-      CONST.TILE_DATA[CONST.ID_ENERGY_SCROLL].energyChange,
-      CONST.TILE_DATA[CONST.ID_ENERGY_SCROLL].image
+    console.log(
+      `Attempting to spawn Energy Scroll: ${this.hasSpawnedEnergyScroll}`
     );
+    if (!this.hasSpawnedEnergyScroll) {
+      console.log("Transforming to Energy Scroll");
+      this.handleTransform(
+        CONST.ID_ENERGY_SCROLL,
+        CONST.TILE_DATA[CONST.ID_ENERGY_SCROLL].energyChange,
+        CONST.TILE_DATA[CONST.ID_ENERGY_SCROLL].image
+      );
+
+      this.canCollectReward = false;
+      this.hasCollectedReward = false;
+      this.hasSpawnedEnergyScroll = true;
+    }
 
     return defaultReturn;
   };

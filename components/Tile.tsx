@@ -1,12 +1,8 @@
-import { type JSX } from "react";
-import { TileBasic } from "../ts/TileTypes.js";
+import { useState, type JSX } from "react";
+import { TileBasic } from "../ts/TileTypes.ts";
 import * as CONST from "../constants/Constants.ts";
 
 let canCollect = false;
-
-const handleKeyDown = () => {};
-const handleKeyUp = () => {};
-const handleMouseMove = () => {};
 
 const generateButtonInner = (tile: TileBasic) => {
   let imageJSX: JSX.Element | null = null;
@@ -46,14 +42,26 @@ const generateButtonInner = (tile: TileBasic) => {
   );
 };
 
-export default function Tile({ tile }: { tile: TileBasic }) {
+export default function Tile({
+  tile,
+  updateMe,
+}: {
+  tile: TileBasic;
+  updateMe: () => void;
+}) {
   canCollect = tile.canCollectReward && !tile.hasCollectedReward;
-  tile.isVisible = true;
+
+  // DEBUG ONLY
+  //   tile.isVisible = true;
+
+  const handleClick = () => {
+    tile.handleClick();
+    updateMe();
+  };
 
   return (
-    <div className="tile" onClick={tile.handleClick}>
+    <div className="tile" onClick={handleClick}>
       {generateButtonInner(tile)}
-      {tile.totalSurroundingDamage}
     </div>
   );
 }

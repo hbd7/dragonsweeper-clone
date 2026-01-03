@@ -16,7 +16,9 @@ const createTileClass = (
   index: number,
   tileId: number,
   surroundingValue: number,
-  myNeighbours: number[]
+  myNeighbours: number[],
+  tilesReact: TileBasic[],
+  updateMe: () => void
 ) => {
   const x = index % CONST.TILES_WIDTH;
   const y = Math.floor(index / CONST.TILES_WIDTH);
@@ -44,12 +46,19 @@ const createTileClass = (
   tile.surroundingTiles = myNeighbours;
 
   tilesClassArray.push(tile);
-  return <Tile tile={tile} key={tile.uniqueId} />;
+  return (
+    <Tile tile={tilesReact[index]} key={tile.uniqueId} updateMe={updateMe} />
+  );
 };
 
 let ifInitialized = false;
 
 export default function TileList() {
+  const [tilesReact, setTilesReact] = useState(tilesClassArray);
+  const updateMe = () => {
+    setTilesReact((arr) => [...arr]);
+  };
+
   const [TILE_OBJECT, SET_TILE_OBJECT] = useState<{
     TILES_TO_GENERATE: number[];
     TILES_SURROUNDING_VALUE: number[];
@@ -76,7 +85,9 @@ export default function TileList() {
         i,
         TILES_TO_GENERATE[i],
         TILES_SURROUNDING_VALUE[i],
-        TILES_SURROUNDING_NEIGHBOURS[i]
+        TILES_SURROUNDING_NEIGHBOURS[i],
+        tilesReact,
+        updateMe
       )
     );
   }
