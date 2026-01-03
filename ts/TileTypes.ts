@@ -89,8 +89,6 @@ export class TileBasic {
   handleClick = () => {
     console.log(`Tile ${this.uniqueId} clicked.`);
 
-    if (this.hasCollectedReward) return null;
-
     if (this.id === CONST.ID_ENERGY_SCROLL) {
       if (this.isVisible) {
         Player.heal();
@@ -99,7 +97,11 @@ export class TileBasic {
       }
 
       this.isVisible = true;
+      return null;
     }
+
+    this.isVisible = true;
+    if (this.hasCollectedReward) return null;
 
     let output;
     if (this.isVisible && this.canCollectReward) {

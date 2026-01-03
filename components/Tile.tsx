@@ -9,7 +9,7 @@ const generateButtonInner = (tile: TileBasic) => {
   let textJSX: JSX.Element | null = null;
 
   if (!tile.isVisible) {
-    return <div></div>;
+    return <div className="tile-hidden"></div>;
   }
 
   if (tile.image !== "") {

@@ -53,8 +53,10 @@ main {
   justify-content: center;
 }
 
-.tile > div:has(img) {
+.tile > div:has(img),
+.tile > div.tile-hidden {
   color: #feb700;
+  background-color: #526666;
   cursor: pointer;
 }
 
