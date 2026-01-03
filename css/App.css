@@ -21,16 +21,17 @@
 
 body {
   background-color: #242424;
+  place-items: center;
 }
 
 main {
-  width: 100vw;
+  width: clamp(500px, 90vw, 800px);
   place-items: center;
   cursor: default;
 }
 
 .tile-list {
-  width: clamp(500px, 90vw, 800px);
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
 }
@@ -93,6 +94,57 @@ main {
   margin: 0;
 }
 
+.stats-bar {
+  background-color: #4c566b;
+  width: 100%;
+  padding: 0.5rem;
+  display: grid;
+  grid-template-areas:
+    "hero energy"
+    "hero experience";
+  grid-template-columns: 1fr 5fr;
+}
+
+.hero-bar {
+  grid-area: hero;
+}
+
 .hero-bar > img.can-level-up {
   cursor: pointer;
+}
+
+.energy-bar {
+  grid-area: energy;
+}
+
+.energy-bar > .every-five {
+  margin-left: 0.75rem;
+}
+
+.experience-bar {
+  grid-area: experience;
+}
+
+.experience-bar span {
+  color: #eeda6a;
+  font-weight: bold;
+  font-size: 2rem;
+  margin-left: 0.5rem;
+  line-height: 0;
+}
+
+.experience-bar img {
+  position: relative;
+}
+
+.experience-bar > .every-five {
+  margin-left: 0.75rem;
+}
+
+.experience-bar img {
+  margin-right: -10px;
+}
+
+.experience-bar > .even {
+  top: +13px;
 }

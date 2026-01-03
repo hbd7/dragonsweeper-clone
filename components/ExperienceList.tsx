@@ -10,9 +10,16 @@ export default function ExperienceList({
   let outputJSX: JSX.Element[] = [];
 
   for (let i = 0; i < playerData.experienceMax; i++) {
-    outputJSX.push(<Experience key={i} isFull={i < playerData.experience} />);
+    outputJSX.push(
+      <Experience
+        key={i}
+        isFull={i < playerData.experience}
+        isEven={i % 2 == 0}
+        isEveryFive={i > 0 && i % 5 == 0}
+      />
+    );
   }
-  if (playerData.experience >= playerData.experienceMax) {
+  if (playerData.experience > playerData.experienceMax) {
     outputJSX.push(<span key="experiencePlusSign">+</span>);
   }
 

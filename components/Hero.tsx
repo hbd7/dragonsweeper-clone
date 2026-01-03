@@ -16,7 +16,7 @@ export default function Hero({
   let outputImage = IMAGE_HERO;
   let canLevelUp = playerData.experience >= playerData.experienceMax;
 
-  if (playerData.energy === 0) outputImage = IMAGE_HERO_PANIC;
+  if (playerData.energy <= 0) outputImage = IMAGE_HERO_PANIC;
   if (canLevelUp) outputImage = IMAGE_HERO_LEVEL;
 
   const handleClick = () => {

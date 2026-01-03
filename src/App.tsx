@@ -39,7 +39,6 @@ function App() {
 
   return (
     <>
-      <h1>Dragonsweeper Clone</h1>
       <main>
         <TileList player={player} />
         <StatsBar player={player} playerData={playerData} />

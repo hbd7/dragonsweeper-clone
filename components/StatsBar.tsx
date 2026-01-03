@@ -12,7 +12,7 @@ export default function StatsBar({
   playerData: PLAYER_DATA;
 }) {
   return (
-    <div>
+    <div className="stats-bar">
       <Hero playerData={playerData} player={player} />
       <EnergyList playerData={playerData} />
       <ExperienceList playerData={playerData} />
