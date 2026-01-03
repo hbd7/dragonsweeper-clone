@@ -1,6 +1,6 @@
 import type { JSX } from "react";
-import type { PLAYER_DATA } from "../ts/Player";
-import Energy from "./Energy";
+import type { PLAYER_DATA } from "../ts/Player.ts";
+import Energy from "./Energy.tsx";
 
 export default function EnergyList({
   playerData,

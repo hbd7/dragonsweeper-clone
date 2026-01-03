@@ -70,7 +70,8 @@ export default class Player {
   }
 
   gainExperience(experienceGain: number) {
-    this.experience += experienceGain;
+    this.setExperience(this.experience + Math.abs(experienceGain));
+    return this;
   }
 
   canLevelUp() {
@@ -78,7 +79,8 @@ export default class Player {
   }
 
   heal() {
-    this.energy = this.maxEnergy;
+    this.setEnergy(this.maxEnergy);
+    return this;
   }
 
   handleLevelUp() {

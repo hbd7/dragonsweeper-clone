@@ -83,6 +83,8 @@ export default class TileBasic {
   };
 
   handleCollectReward = () => {
+    if (this.energyChange !== 0) this.player.gainExperience(this.energyChange);
+
     this.setToEmpty();
     this.canCollectReward = false;
     this.hasCollectedReward = true;
