@@ -2,7 +2,7 @@ import * as CONST from "../constants/Constants.ts";
 import { tilesClassArray } from "../components/TileList.tsx";
 import { Player } from "./Player.ts";
 
-export class TileBasic {
+export default class TileBasic {
   id: number;
   energyChange: number;
   x: number;
@@ -87,8 +87,6 @@ export class TileBasic {
   };
 
   handleClick = () => {
-    console.log(`Tile ${this.uniqueId} clicked.`);
-
     if (this.id === CONST.ID_ENERGY_SCROLL) {
       if (this.isVisible) {
         Player.heal();
@@ -111,98 +109,5 @@ export class TileBasic {
     }
 
     return output;
-  };
-}
-
-export class TileRatKing extends TileBasic {
-  allTiles: TileBasic[];
-
-  constructor(
-    id: number,
-    energyChange: number,
-    x: number,
-    y: number,
-    allTiles: TileBasic[]
-  ) {
-    super(id, energyChange, x, y, CONST.TILE_DATA[CONST.ID_RAT_KING].image);
-    this.allTiles = allTiles;
-  }
-
-  // Clicking Rat King shows all rats on the board
-  handleActivateExtended = () => {
-    this.allTiles.forEach((tile) => {
-      if (tile.id === CONST.ID_RAT) tile.isVisible = true;
-    });
-
-    return this.getDefaultReturnOnClick();
-  };
-}
-
-export class TileTitan extends TileBasic {
-  hasSpawnedEnergyScroll = false;
-
-  constructor(id: number, energyChange: number, x: number, y: number) {
-    super(id, energyChange, x, y, CONST.TILE_DATA[CONST.ID_TITAN].image);
-  }
-
-  // Collecting Reward from Titan changes the tile into an Energy Scroll
-  handleCollectRewardExtended = () => {
-    const defaultReturn = this.getDefaultReturnOnClick();
-
-    console.log(
-      `Attempting to spawn Energy Scroll: ${this.hasSpawnedEnergyScroll}`
-    );
-    if (!this.hasSpawnedEnergyScroll) {
-      console.log("Transforming to Energy Scroll");
-      this.handleTransform(
-        CONST.ID_ENERGY_SCROLL,
-        CONST.TILE_DATA[CONST.ID_ENERGY_SCROLL].energyChange,
-        CONST.TILE_DATA[CONST.ID_ENERGY_SCROLL].image
-      );
-
-      this.canCollectReward = false;
-      this.hasCollectedReward = false;
-      this.hasSpawnedEnergyScroll = true;
-    }
-
-    return defaultReturn;
-  };
-}
-
-export class TileVision extends TileBasic {
-  allTiles: TileBasic[];
-
-  constructor(
-    id: number,
-    energyChange: number,
-    x: number,
-    y: number,
-    allTiles: TileBasic[]
-  ) {
-    super(id, energyChange, x, y, CONST.TILE_DATA[CONST.ID_VISION].image);
-    this.allTiles = allTiles;
-    this.isVisible = true;
-  }
-
-  handleCollectRewardExtended = () => {
-    const defaultReturn = this.getDefaultReturnOnClick();
-
-    return defaultReturn;
-  };
-}
-
-export class TileDragon extends TileBasic {
-  constructor(id: number, energyChange: number, x: number, y: number) {
-    super(id, energyChange, x, y, CONST.TILE_DATA[CONST.ID_DRAGON].image);
-    this.isVisible = true;
-  }
-
-  handleCollectRewardExtended = () => {
-    const defaultReturn = this.getDefaultReturnOnClick();
-
-    // TODO: win
-    // Check to make sure not dead first before giving win
-
-    return defaultReturn;
   };
 }

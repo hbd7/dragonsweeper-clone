@@ -26,6 +26,7 @@ body {
 main {
   width: 100vw;
   place-items: center;
+  cursor: default;
 }
 
 .tile-list {

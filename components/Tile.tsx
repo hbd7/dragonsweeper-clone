@@ -1,5 +1,5 @@
-import { useState, type JSX } from "react";
-import { TileBasic } from "../ts/TileTypes.ts";
+import { type MouseEvent, type JSX } from "react";
+import TileBasic from "../ts/TileBasic.ts";
 import * as CONST from "../constants/Constants.ts";
 
 let canCollect = false;
@@ -59,8 +59,17 @@ export default function Tile({
     updateMe();
   };
 
+  const handleRightClick = (e: MouseEvent) => {
+    // Do popup menu for marking
+    e.preventDefault();
+  };
+
   return (
-    <div className="tile" onClick={handleClick}>
+    <div
+      className="tile"
+      onClick={handleClick}
+      onContextMenu={handleRightClick}
+    >
       {generateButtonInner(tile)}
     </div>
   );

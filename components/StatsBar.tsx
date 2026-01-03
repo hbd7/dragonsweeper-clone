@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Player } from "../ts/Player.ts";
 
 export default function StatsBar() {

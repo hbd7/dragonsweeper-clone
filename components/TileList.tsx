@@ -1,14 +1,12 @@
 import Tile from "./Tile.tsx";
 import generateTiles from "../ts/GenerateTiles.ts";
-import {
-  TileBasic,
-  TileDragon,
-  TileRatKing,
-  TileTitan,
-  TileVision,
-} from "../ts/TileTypes.ts";
 import * as CONST from "../constants/Constants.ts";
 import { useEffect, useState, type JSX } from "react";
+import TileBasic from "../ts/TileBasic.ts";
+import TileVision from "../ts/TileVision.ts";
+import TileRatKing from "../ts/TileRatKing.ts";
+import TileTitan from "../ts/TileTitan.ts";
+import TileDragon from "../ts/TileDragon.ts";
 
 export const tilesClassArray: TileBasic[] = [];
 

@@ -10,12 +10,6 @@ const convertXYtoIndex = (x: number, y: number) => {
   return y * CONST.TILES_WIDTH + x;
 };
 
-// const logIndex = (index: number, text: string) => {
-//   const x = index % CONST.TILES_WIDTH;
-//   const y = Math.floor(index / CONST.TILES_WIDTH);
-//   console.log(`${text} (${x}, ${y})`);
-// };
-
 // Dragon must be in the center
 let indexOfDragon = -1;
 const POSSIBLE_TILE_FOR_DRAGON = convertXYtoIndex(

@@ -12,7 +12,6 @@ export const Player = {
   experience: 0,
 
   loseEnergy(energyLost: number) {
-    console.log(`Energy ${energyLost}`);
     this.energy += energyLost;
     if (this.energy < 0) {
       // Must be below 0. Being at 0 is not a lose condition
@@ -34,7 +33,6 @@ export const Player = {
 
   heal() {
     this.energy = this.maxEnergy;
-    console.log("Healed");
   },
 
   handleLevelUp() {
