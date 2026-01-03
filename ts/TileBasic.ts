@@ -75,7 +75,8 @@ export default class TileBasic {
   };
 
   getDefaultReturnOnClick = () => {
-    return { id: this.id, energyChange: this.energyChange };
+    //return { id: this.id, energyChange: this.energyChange };
+    return this;
   };
 
   handleCollectRewardExtended = () => {

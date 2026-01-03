@@ -134,7 +134,7 @@ TILE_DATA[nextId].image = "./images/tiles/tile_mine.png";
 TILE_DATA[nextId].energyChange = -100;
 TILE_DATA[nextId].trackerGroups = [nextId];
 TILE_DATA[nextId].name = "Mine";
-export const REWARD_MINE = 2;
+export const REWARD_MINE = 3;
 TILE_DATA[nextId].howManyToGenerate = 9;
 
 export const ID_DRAGON = ++nextId;

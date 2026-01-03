@@ -2,12 +2,13 @@ import Tile from "./Tile.tsx";
 import generateTiles from "../ts/GenerateTiles.ts";
 import * as CONST from "../constants/TileData.ts";
 import { useEffect, useState, type JSX } from "react";
+import type Player from "../ts/Player.ts";
 import TileBasic from "../ts/TileBasic.ts";
 import TileVision from "../ts/TileVision.ts";
 import TileRatKing from "../ts/TileRatKing.ts";
 import TileTitan from "../ts/TileTitan.ts";
 import TileDragon from "../ts/TileDragon.ts";
-import type Player from "../ts/Player.ts";
+import TileMimic from "../ts/TileMimic.ts";
 
 export const tilesClassArray: TileBasic[] = [];
 
@@ -77,6 +78,9 @@ export default function TileList({ player }: { player: Player }) {
         break;
       case CONST.ID_DRAGON:
         tile = new TileDragon(player, tileId, energyChange, x, y);
+        break;
+      case CONST.ID_MIMIC:
+        tile = new TileMimic(player, tileId, energyChange, x, y);
         break;
       default:
         tile = new TileBasic(player, tileId, energyChange, x, y, image);

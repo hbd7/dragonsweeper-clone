@@ -15,7 +15,7 @@ export default function Tile({
   canCollect = tile.canCollectReward && !tile.hasCollectedReward;
 
   // DEBUG ONLY
-  //   tile.isVisible = true;
+  // tile.isVisible = true;
 
   const handleClick = () => {
     tile.handleClick();
@@ -39,14 +39,17 @@ export default function Tile({
       imageJSX = <img src={tile.image} alt={CONST.TILE_DATA[tile.id].name} />;
     }
 
-    if (tile.energyChange < 0) {
-      textJSX = <span>{Math.abs(tile.energyChange)}</span>;
-    } else if (canCollect && tile.energyChange !== 0) {
+    if (canCollect && tile.energyChange !== 0) {
       textJSX = (
         <span>
-          <img src={IMAGE_REWARD} alt={IMAGE_REWARD_NAME} /> {tile.energyChange}
+          <img src={IMAGE_REWARD} alt={IMAGE_REWARD_NAME} />{" "}
+          {Math.abs(tile.energyChange)}
         </span>
       );
+    } else if (tile.energyChange < 0) {
+      if (tile.id != CONST.ID_MIMIC || tile.canCollectReward) {
+        textJSX = <span>{Math.abs(tile.energyChange)}</span>;
+      }
     } else if (tile.image == "" && tile.totalSurroundingDamage > 0) {
       textJSX = (
         <span className="surrounding">{tile.totalSurroundingDamage}</span>
