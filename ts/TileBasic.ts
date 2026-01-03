@@ -9,6 +9,7 @@ export default class TileBasic {
   y: number;
   image: string;
   uniqueId: string;
+  index: number;
 
   isVisible = false;
   canCollectReward = false;
@@ -16,6 +17,7 @@ export default class TileBasic {
   isBlockedByGazer = false;
   totalSurroundingDamage = 0;
   surroundingTiles: number[] = [];
+  surroundingTilesExtended: number[] = [];
 
   constructor(
     id: number,
@@ -30,11 +32,25 @@ export default class TileBasic {
     this.x = x;
     this.y = y;
     this.uniqueId = `(${this.x},${this.y})`;
+    this.index = y * CONST.TILES_WIDTH + x;
 
     if (!id) {
       this.hasCollectedReward = true;
     }
   }
+
+  setSurroundingTiles = (tiles: number[]) => {
+    this.surroundingTiles = [...tiles];
+    this.surroundingTilesExtended = [...tiles];
+
+    if (this.y >= 2)
+      this.surroundingTilesExtended.push(this.index - CONST.TILES_WIDTH * 2);
+    if (this.y < CONST.TILES_HEIGHT - 2)
+      this.surroundingTilesExtended.push(this.index + CONST.TILES_WIDTH * 2);
+    if (this.x >= 2) this.surroundingTilesExtended.push(this.index - 2);
+    if (this.x < CONST.TILES_WIDTH - 2)
+      this.surroundingTilesExtended.push(this.index + 2);
+  };
 
   // Transform this tile into another tile type
   handleTransform = (id: number, energyChange: number, image: string) => {

@@ -10,15 +10,15 @@ const convertXYtoIndex = (x: number, y: number) => {
   return y * CONST.TILES_WIDTH + x;
 };
 
-// Dragon must be in the center
 let indexOfDragon = -1;
+// Dragon must be in the center
 const POSSIBLE_TILE_FOR_DRAGON = convertXYtoIndex(
   Math.ceil(CONST.TILES_WIDTH / 2) - 1,
   Math.floor(CONST.TILES_HEIGHT / 2) - 1
 );
 
-// Dragon Egg must be next to Dragon
 let indexOfDragonEgg = -1;
+// Dragon Egg must be next to Dragon
 const POSSIBLE_TILES_FOR_DRAGON_EGG = [
   POSSIBLE_TILE_FOR_DRAGON - CONST.TILES_WIDTH - 1,
   POSSIBLE_TILE_FOR_DRAGON - CONST.TILES_WIDTH,
@@ -29,6 +29,37 @@ const POSSIBLE_TILES_FOR_DRAGON_EGG = [
   POSSIBLE_TILE_FOR_DRAGON + CONST.TILES_WIDTH,
   POSSIBLE_TILE_FOR_DRAGON + CONST.TILES_WIDTH + 1,
 ];
+
+let indexOfVision = -1;
+// Vision must not be on edges nor within 2 tile of the dragon
+const POSSIBLE_TILES_FOR_VISION: number[] = [];
+for (let i = 0; i < TILES_TO_GENERATE.length; i++) {
+  if (
+    i % CONST.TILES_WIDTH == 0 ||
+    i % CONST.TILES_WIDTH == CONST.TILES_WIDTH - 1
+  ) {
+    continue;
+  }
+
+  if (
+    i < CONST.TILES_WIDTH ||
+    i >= (CONST.TILES_HEIGHT - 1) * CONST.TILES_WIDTH
+  ) {
+    continue;
+  }
+
+  const differenceX = Math.abs(
+    (i % CONST.TILES_WIDTH) - (POSSIBLE_TILE_FOR_DRAGON % CONST.TILES_WIDTH)
+  );
+  const differenceY = Math.abs(
+    Math.floor(i / CONST.TILES_WIDTH) -
+      Math.floor(POSSIBLE_TILE_FOR_DRAGON / CONST.TILES_WIDTH)
+  );
+
+  if (differenceX <= 2 && differenceY <= 2) continue;
+
+  POSSIBLE_TILES_FOR_VISION.push(i);
+}
 
 const generateTilesArray = () => {
   let insertCounter = 0;
@@ -70,6 +101,13 @@ const swapTilesAround = () => {
   );
   swapTiles(indexOfDragonEgg, POSSIBLE_TILES_FOR_DRAGON_EGG[newDragonEggIndex]);
   indexOfDragonEgg = POSSIBLE_TILES_FOR_DRAGON_EGG[newDragonEggIndex];
+
+  indexOfVision = TILES_TO_GENERATE.indexOf(CONST.ID_VISION);
+  const newVisionIndex = Math.floor(
+    Math.random() * POSSIBLE_TILES_FOR_VISION.length
+  );
+  swapTiles(indexOfVision, POSSIBLE_TILES_FOR_VISION[newVisionIndex]);
+  indexOfVision = POSSIBLE_TILES_FOR_VISION[newVisionIndex];
 };
 
 const getSurroundingIndexes = (index: number) => {

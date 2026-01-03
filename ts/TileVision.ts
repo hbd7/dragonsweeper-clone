@@ -16,9 +16,15 @@ export default class TileVision extends TileBasic {
     this.isVisible = true;
   }
 
-  handleCollectRewardExtended = () => {
-    const defaultReturn = this.getDefaultReturnOnClick();
+  handleActivateExtended = () => {
+    this.allTiles.forEach((tile) => {
+      if (this.surroundingTilesExtended.includes(tile.index)) {
+        tile.isVisible = true;
+      }
+    });
 
-    return defaultReturn;
+    this.setToEmpty();
+
+    return this.getDefaultReturnOnClick();
   };
 }

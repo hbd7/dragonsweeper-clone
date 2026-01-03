@@ -41,7 +41,7 @@ const createTileClass = (
       tile = new TileBasic(tileId, energyChange, x, y, image);
   }
   tile.totalSurroundingDamage = surroundingValue;
-  tile.surroundingTiles = myNeighbours;
+  tile.setSurroundingTiles(myNeighbours);
 
   tilesClassArray.push(tile);
   return (
