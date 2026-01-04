@@ -17,7 +17,6 @@ export default class TileChestEnergy extends TileBasic {
     y: number
   ) {
     super(player, id, energyChange, x, y, TILE_DATA[ID_CHEST_ENERGY].image);
-    this.isVisible = true;
   }
 
   handleCollectRewardExtended = () => {
