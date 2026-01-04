@@ -64,6 +64,8 @@ export default class TileBasic {
     this.isVisible = true;
     this.canCollectReward = true;
     this.hasCollectedReward = false;
+
+    return this;
   };
 
   setToEmpty = () => {
@@ -72,15 +74,12 @@ export default class TileBasic {
     this.energyChange = 0;
     this.canCollectReward = false;
     this.hasCollectedReward = true;
-  };
 
-  getDefaultReturnOnClick = () => {
-    //return { id: this.id, energyChange: this.energyChange };
     return this;
   };
 
   handleCollectRewardExtended = () => {
-    return this.getDefaultReturnOnClick();
+    return this;
   };
 
   handleCollectReward = () => {
@@ -89,11 +88,12 @@ export default class TileBasic {
     this.setToEmpty();
     this.canCollectReward = false;
     this.hasCollectedReward = true;
+
     return this.handleCollectRewardExtended();
   };
 
   handleActivateExtended = () => {
-    return this.getDefaultReturnOnClick();
+    return this;
   };
 
   handleActivate = () => {
@@ -114,6 +114,7 @@ export default class TileBasic {
       if (this.isVisible) {
         this.player.heal();
         this.setToEmpty();
+
         return null;
       }
 

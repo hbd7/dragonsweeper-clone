@@ -1,5 +1,5 @@
 import TileBasic from "./TileBasic";
-import * as CONST from "../constants/TileData.ts";
+import { TILE_DATA, ID_RAT, ID_RAT_KING } from "../constants/TileData.ts";
 import type Player from "./Player.ts";
 
 export default class TileRatKing extends TileBasic {
@@ -13,23 +13,16 @@ export default class TileRatKing extends TileBasic {
     y: number,
     allTiles: TileBasic[]
   ) {
-    super(
-      player,
-      id,
-      energyChange,
-      x,
-      y,
-      CONST.TILE_DATA[CONST.ID_RAT_KING].image
-    );
+    super(player, id, energyChange, x, y, TILE_DATA[ID_RAT_KING].image);
     this.allTiles = allTiles;
   }
 
   // Clicking Rat King shows all rats on the board
   handleActivateExtended = () => {
     this.allTiles.forEach((tile) => {
-      if (tile.id === CONST.ID_RAT) tile.isVisible = true;
+      if (tile.id === ID_RAT) tile.isVisible = true;
     });
 
-    return this.getDefaultReturnOnClick();
+    return this;
   };
 }

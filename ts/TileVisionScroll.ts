@@ -1,5 +1,5 @@
 import TileBasic from "./TileBasic";
-import * as CONST from "../constants/TileData.ts";
+import { TILE_DATA, ID_VISION_SCROLL } from "../constants/TileData.ts";
 import type Player from "./Player.ts";
 
 export default class TileVisionScroll extends TileBasic {
@@ -13,14 +13,7 @@ export default class TileVisionScroll extends TileBasic {
     y: number,
     allTiles: TileBasic[]
   ) {
-    super(
-      player,
-      id,
-      energyChange,
-      x,
-      y,
-      CONST.TILE_DATA[CONST.ID_VISION_SCROLL].image
-    );
+    super(player, id, energyChange, x, y, TILE_DATA[ID_VISION_SCROLL].image);
     this.allTiles = allTiles;
   }
 
@@ -40,6 +33,6 @@ export default class TileVisionScroll extends TileBasic {
 
     this.setToEmpty();
 
-    return this.getDefaultReturnOnClick();
+    return this;
   };
 }

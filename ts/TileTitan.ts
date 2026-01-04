@@ -1,5 +1,9 @@
 import TileBasic from "./TileBasic";
-import * as CONST from "../constants/TileData.ts";
+import {
+  TILE_DATA,
+  ID_TITAN,
+  ID_ENERGY_SCROLL,
+} from "../constants/TileData.ts";
 import type Player from "./Player.ts";
 
 export default class TileTitan extends TileBasic {
@@ -12,25 +16,16 @@ export default class TileTitan extends TileBasic {
     x: number,
     y: number
   ) {
-    super(
-      player,
-      id,
-      energyChange,
-      x,
-      y,
-      CONST.TILE_DATA[CONST.ID_TITAN].image
-    );
+    super(player, id, energyChange, x, y, TILE_DATA[ID_TITAN].image);
   }
 
   // Collecting Reward from Titan changes the tile into an Energy Scroll
   handleCollectRewardExtended = () => {
-    const defaultReturn = this.getDefaultReturnOnClick();
-
     if (!this.hasSpawnedEnergyScroll) {
       this.handleTransform(
-        CONST.ID_ENERGY_SCROLL,
-        CONST.TILE_DATA[CONST.ID_ENERGY_SCROLL].energyChange,
-        CONST.TILE_DATA[CONST.ID_ENERGY_SCROLL].image
+        ID_ENERGY_SCROLL,
+        TILE_DATA[ID_ENERGY_SCROLL].energyChange,
+        TILE_DATA[ID_ENERGY_SCROLL].image
       );
 
       this.canCollectReward = false;
@@ -38,6 +33,6 @@ export default class TileTitan extends TileBasic {
       this.hasSpawnedEnergyScroll = true;
     }
 
-    return defaultReturn;
+    return this;
   };
 }
