@@ -15,11 +15,13 @@ export default function Tile({
   updateMe,
   markerToShow,
   setMarkerButtonListIndex,
+  setRef,
 }: {
   tile: TileBasic;
   updateMe: () => void;
   markerToShow: number;
   setMarkerButtonListIndex: Dispatch<SetStateAction<number | null>>;
+  setRef: (ref: HTMLDivElement) => void;
 }) {
   canCollect = tile.canCollectReward && !tile.hasCollectedReward;
 
@@ -93,6 +95,7 @@ export default function Tile({
       className="tile"
       onClick={handleClick}
       onContextMenu={handleRightClick}
+      ref={setRef}
     >
       {generateButtonInner()}
     </div>

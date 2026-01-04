@@ -1,7 +1,7 @@
-import MarkerButtonList from "./MarkerButtonList.tsx";
+import MarkerButtonListWrapper from "./MarkerButtonListWrapper.tsx";
 import generateTiles from "../ts/GenerateTiles.ts";
 import { createTileClass } from "./TileCreateTileClass.tsx";
-import { useEffect, useState, type JSX } from "react";
+import { useEffect, useRef, useState, type JSX } from "react";
 import type Player from "../ts/Player.ts";
 import TileBasic from "../ts/TileBasic.ts";
 
@@ -35,12 +35,23 @@ export default function TileList({ player }: { player: Player }) {
     SET_TILE_OBJECT(generateTiles());
   }, []);
 
+  // Marker to display on each Tile
   const [markerToShow, setMarkerToShow] = useState<number[]>(
     Array(TILES_TO_GENERATE.length).fill(0)
   );
+
+  // Index of the Tile that wants to get its marker set
   const [markerButtonListIndex, setMarkerButtonListIndex] = useState<
     number | null
   >(null);
+
+  // Grab ref of each Tile's HTML element to calculate the positioning of the popup menu for markers
+  const tileRef = useRef<HTMLDivElement[]>([]);
+  const setTileRef = (ref: HTMLDivElement) => {
+    if (ref && !tileRef.current.includes(ref)) {
+      tileRef.current.push(ref);
+    }
+  };
 
   for (let i = 0; i < TILES_TO_GENERATE.length; i++) {
     outputJSX.push(
@@ -52,9 +63,10 @@ export default function TileList({ player }: { player: Player }) {
         player,
         tilesClassArray,
         updateMe,
-        tilesReact,
-        markerToShow,
-        setMarkerButtonListIndex
+        tilesReact[i],
+        markerToShow[i],
+        setMarkerButtonListIndex,
+        setTileRef
       )
     );
   }
@@ -62,10 +74,11 @@ export default function TileList({ player }: { player: Player }) {
   return (
     <div className="tile-list">
       {outputJSX}
-      <MarkerButtonList
+      <MarkerButtonListWrapper
+        markerButtonListIndex={markerButtonListIndex}
+        tileRef={tileRef}
         markerToShow={markerToShow}
         setMarkerToShow={setMarkerToShow}
-        markerButtonListIndex={markerButtonListIndex}
         setMarkerButtonListIndex={setMarkerButtonListIndex}
       />
     </div>

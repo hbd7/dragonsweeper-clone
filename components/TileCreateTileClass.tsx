@@ -17,9 +17,10 @@ export const createTileClass = (
   player: Player,
   tilesClassArray: TileBasic[],
   updateMe: () => void,
-  tilesReact: TileBasic[],
-  markerToShow: number[],
-  setMarkerButtonListIndex: Dispatch<SetStateAction<number | null>>
+  tilesReact: TileBasic,
+  markerToShow: number,
+  setMarkerButtonListIndex: Dispatch<SetStateAction<number | null>>,
+  setRef: (ref: HTMLDivElement) => void
 ) => {
   const x = index % CONST.TILES_WIDTH;
   const y = Math.floor(index / CONST.TILES_WIDTH);
@@ -66,11 +67,12 @@ export const createTileClass = (
   tilesClassArray.push(tile);
   return (
     <Tile
-      tile={tilesReact[index]}
+      tile={tilesReact}
       key={tile.uniqueId}
       updateMe={updateMe}
-      markerToShow={markerToShow[index]}
+      markerToShow={markerToShow}
       setMarkerButtonListIndex={setMarkerButtonListIndex}
+      setRef={setRef}
     />
   );
 };

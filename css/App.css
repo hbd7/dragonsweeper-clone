@@ -71,6 +71,7 @@ main {
 }
 
 .tile > div.tile-hidden span {
+  color: #319ced;
   font-size: 3rem;
 }
 
@@ -166,6 +167,10 @@ main {
   top: +13px;
 }
 
+.marker-button-list-wrapper {
+  position: absolute;
+}
+
 .marker-button-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -174,7 +179,7 @@ main {
 }
 
 .marker-button-list.hidden {
-  visibility: hidden;
+  opacity: 0;
 }
 
 .marker-button-list .marker-button {

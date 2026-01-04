@@ -20,11 +20,12 @@ export default function MarkerButtonList({
   markerButtonListIndex: number | null;
   setMarkerButtonListIndex: Dispatch<SetStateAction<number | null>>;
 }) {
-  if (markerButtonListIndex === null)
-    return <div className="marker-button-list hidden"></div>;
-
   return (
-    <div className="marker-button-list">
+    <div
+      className={`marker-button-list${
+        markerButtonListIndex === null ? " hidden" : ""
+      }`}
+    >
       {VALUE_DISPLAY.map((value) => {
         return (
           <MarkerButton
