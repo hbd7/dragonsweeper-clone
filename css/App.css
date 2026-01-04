@@ -25,11 +25,13 @@ body {
 }
 
 main {
-  width: clamp(500px, 90vw, 800px);
+  width: 100vmin;
+  height: 95vmin;
   place-items: center;
   cursor: default;
   -webkit-text-stroke: 4px #454545;
   paint-order: stroke fill;
+  margin-top: 0.25rem;
 }
 
 .tile-list {
@@ -105,6 +107,7 @@ main {
     "hero energy"
     "hero experience";
   grid-template-columns: 1fr 5fr;
+  border: #293333 2px solid;
 }
 
 .hero-bar {
