@@ -21,8 +21,6 @@ export default class TileLich extends TileBasic {
   ) {
     super(player, id, energyChange, x, y, TILE_DATA[ID_LICH].image);
     this.allTiles = allTiles;
-
-    this.isVisible = true;
   }
 
   handleVisionScroll = () => {
