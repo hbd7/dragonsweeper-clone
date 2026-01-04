@@ -66,6 +66,14 @@ main {
   cursor: pointer;
 }
 
+.tile > div.tile-hidden {
+  color: #c7c7fe;
+}
+
+.tile > div.tile-hidden span {
+  font-size: 3rem;
+}
+
 .tile > div:has(img) > span {
   margin-top: -10px;
 }

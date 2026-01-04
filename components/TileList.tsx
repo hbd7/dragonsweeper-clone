@@ -1,7 +1,13 @@
 import MarkerButtonList from "./MarkerButtonList.tsx";
 import generateTiles from "../ts/GenerateTiles.ts";
 import { createTileClass } from "./CreateTileClass.tsx";
-import { useEffect, useState, type JSX } from "react";
+import {
+  useEffect,
+  useState,
+  type Dispatch,
+  type JSX,
+  type SetStateAction,
+} from "react";
 import type Player from "../ts/Player.ts";
 import TileBasic from "../ts/TileBasic.ts";
 
@@ -35,6 +41,13 @@ export default function TileList({ player }: { player: Player }) {
     SET_TILE_OBJECT(generateTiles());
   }, []);
 
+  const [markerToShow, setMarkerToShow] = useState<number[]>(
+    Array(TILES_TO_GENERATE.length).fill(0)
+  );
+  const [markerButtonListIndex, setMarkerButtonListIndex] = useState<
+    number | null
+  >(null);
+
   for (let i = 0; i < TILES_TO_GENERATE.length; i++) {
     outputJSX.push(
       createTileClass(
@@ -45,21 +58,21 @@ export default function TileList({ player }: { player: Player }) {
         player,
         tilesClassArray,
         updateMe,
-        tilesReact
+        tilesReact,
+        markerToShow,
+        setMarkerButtonListIndex
       )
     );
   }
-
-  const [markerToUse, setMarkerToUse] = useState(0);
-  const [isMarkerButtonListVisible, setIsMarkerButtonListVisible] = useState(1);
 
   return (
     <div className="tile-list">
       {outputJSX}
       <MarkerButtonList
-        isMarkerButtonListVisible={isMarkerButtonListVisible}
-        callback={setMarkerToUse}
-        callbackDisplay={setIsMarkerButtonListVisible}
+        markerToShow={markerToShow}
+        setMarkerToShow={setMarkerToShow}
+        markerButtonListIndex={markerButtonListIndex}
+        setMarkerButtonListIndex={setMarkerButtonListIndex}
       />
     </div>
   );

@@ -1,4 +1,5 @@
-import { type SET_FUNCTION } from "../ts/Player.ts";
+import type { Dispatch, SetStateAction } from "react";
+import type TileBasic from "../ts/TileBasic.ts";
 import MarkerButton from "./MarkerButton.tsx";
 import MarkerButtonCancel from "./MarkerButtonCancel.tsx";
 import MarkerButtonRemove from "./MarkerButtonRemove.tsx";
@@ -10,16 +11,19 @@ for (let i = 1; i < 12; i++) {
 VALUE_DISPLAY.push(100);
 
 export default function MarkerButtonList({
-  isMarkerButtonListVisible,
-  callback,
-  callbackDisplay,
+  markerToShow,
+  setMarkerToShow,
+  markerButtonListIndex,
+  setMarkerButtonListIndex,
 }: {
-  isMarkerButtonListVisible: number;
-  callback: SET_FUNCTION;
-  callbackDisplay: SET_FUNCTION;
+  markerToShow: number[];
+  setMarkerToShow: Dispatch<SetStateAction<number[]>>;
+  markerButtonListIndex: number | null;
+  setMarkerButtonListIndex: Dispatch<SetStateAction<number | null>>;
 }) {
-  if (!isMarkerButtonListVisible)
+  if (markerButtonListIndex === null)
     return <div className="marker-button-list hidden"></div>;
+
   return (
     <div className="marker-button-list">
       {VALUE_DISPLAY.map((value) => {
@@ -27,16 +31,20 @@ export default function MarkerButtonList({
           <MarkerButton
             key={value}
             value={value}
-            callback={callback}
-            callbackDisplay={callbackDisplay}
+            markerToShow={markerToShow}
+            setMarkerToShow={setMarkerToShow}
+            markerButtonListIndex={markerButtonListIndex}
+            setMarkerButtonListIndex={setMarkerButtonListIndex}
           />
         );
       })}
       <MarkerButtonRemove
-        callback={callback}
-        callbackDisplay={callbackDisplay}
+        markerToShow={markerToShow}
+        setMarkerToShow={setMarkerToShow}
+        markerButtonListIndex={markerButtonListIndex}
+        setMarkerButtonListIndex={setMarkerButtonListIndex}
       />
-      <MarkerButtonCancel callbackDisplay={callbackDisplay} />
+      <MarkerButtonCancel setMarkerButtonListIndex={setMarkerButtonListIndex} />
     </div>
   );
 }

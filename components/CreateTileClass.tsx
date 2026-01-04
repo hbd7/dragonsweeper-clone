@@ -7,6 +7,7 @@ import TileTitan from "../ts/TileTitan.ts";
 import TileDragon from "../ts/TileDragon.ts";
 import TileMimic from "../ts/TileMimic.ts";
 import type Player from "../ts/Player.ts";
+import type { Dispatch, SetStateAction } from "react";
 
 export const createTileClass = (
   index: number,
@@ -16,7 +17,9 @@ export const createTileClass = (
   player: Player,
   tilesClassArray: TileBasic[],
   updateMe: () => void,
-  tilesReact: TileBasic[]
+  tilesReact: TileBasic[],
+  markerToShow: number[],
+  setMarkerButtonListIndex: Dispatch<SetStateAction<number | null>>
 ) => {
   const x = index % CONST.TILES_WIDTH;
   const y = Math.floor(index / CONST.TILES_WIDTH);
@@ -62,6 +65,12 @@ export const createTileClass = (
 
   tilesClassArray.push(tile);
   return (
-    <Tile tile={tilesReact[index]} key={tile.uniqueId} updateMe={updateMe} />
+    <Tile
+      tile={tilesReact[index]}
+      key={tile.uniqueId}
+      updateMe={updateMe}
+      markerToShow={markerToShow[index]}
+      setMarkerButtonListIndex={setMarkerButtonListIndex}
+    />
   );
 };

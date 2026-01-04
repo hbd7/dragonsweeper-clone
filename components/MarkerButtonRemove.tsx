@@ -1,15 +1,23 @@
-import { type SET_FUNCTION } from "../ts/Player.ts";
+import type { Dispatch, SetStateAction } from "react";
 
 export default function MarkerButtonRemove({
-  callback,
-  callbackDisplay,
+  markerToShow,
+  setMarkerToShow,
+  markerButtonListIndex,
+  setMarkerButtonListIndex,
 }: {
-  callback: SET_FUNCTION;
-  callbackDisplay: SET_FUNCTION;
+  markerToShow: number[];
+  setMarkerToShow: Dispatch<SetStateAction<number[]>>;
+  markerButtonListIndex: number | null;
+  setMarkerButtonListIndex: Dispatch<SetStateAction<number | null>>;
 }) {
   const handleClick = () => {
-    callback(0);
-    callbackDisplay(0);
+    if (markerButtonListIndex !== null) {
+      const tempArr = [...markerToShow];
+      tempArr[markerButtonListIndex] = 0;
+      setMarkerToShow(tempArr);
+      setMarkerButtonListIndex(null);
+    }
   };
 
   return (

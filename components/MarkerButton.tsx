@@ -1,17 +1,27 @@
+import type { Dispatch, SetStateAction } from "react";
 import { type SET_FUNCTION } from "../ts/Player.ts";
+import type TileBasic from "../ts/TileBasic.ts";
 
 export default function MarkerButton({
   value,
-  callback,
-  callbackDisplay,
+  markerToShow,
+  setMarkerToShow,
+  markerButtonListIndex,
+  setMarkerButtonListIndex,
 }: {
   value: number;
-  callback: SET_FUNCTION;
-  callbackDisplay: SET_FUNCTION;
+  markerToShow: number[];
+  setMarkerToShow: Dispatch<SetStateAction<number[]>>;
+  markerButtonListIndex: number | null;
+  setMarkerButtonListIndex: Dispatch<SetStateAction<number | null>>;
 }) {
   const handleClick = () => {
-    callback(value);
-    callbackDisplay(0);
+    if (markerButtonListIndex !== null) {
+      const tempArr = [...markerToShow];
+      tempArr[markerButtonListIndex] = value;
+      setMarkerToShow(tempArr);
+      setMarkerButtonListIndex(null);
+    }
   };
 
   return (

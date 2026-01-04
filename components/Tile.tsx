@@ -1,4 +1,9 @@
-import { type MouseEvent, type JSX } from "react";
+import {
+  type MouseEvent,
+  type JSX,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import TileBasic from "../ts/TileBasic.ts";
 import * as CONST from "../constants/TileData.ts";
 import { IMAGE_REWARD, IMAGE_REWARD_NAME } from "../constants/ImageData.ts";
@@ -8,9 +13,13 @@ let canCollect = false;
 export default function Tile({
   tile,
   updateMe,
+  markerToShow,
+  setMarkerButtonListIndex,
 }: {
   tile: TileBasic;
   updateMe: () => void;
+  markerToShow: number;
+  setMarkerButtonListIndex: Dispatch<SetStateAction<number | null>>;
 }) {
   canCollect = tile.canCollectReward && !tile.hasCollectedReward;
 
@@ -19,12 +28,17 @@ export default function Tile({
 
   const handleClick = () => {
     tile.handleClick();
+    setMarkerButtonListIndex(null);
     updateMe();
   };
 
   const handleRightClick = (e: MouseEvent) => {
     // Do popup menu for marking
     e.preventDefault();
+
+    if (tile.isVisible) return;
+
+    setMarkerButtonListIndex(tile.index);
   };
 
   const generateButtonInner = () => {
@@ -32,7 +46,17 @@ export default function Tile({
     let textJSX: JSX.Element | null = null;
 
     if (!tile.isVisible) {
-      return <div className="tile-hidden"></div>;
+      return (
+        <div className="tile-hidden">
+          {markerToShow == 100 ? (
+            <span>*</span>
+          ) : markerToShow > 0 ? (
+            markerToShow
+          ) : (
+            ""
+          )}
+        </div>
+      );
     }
 
     if (tile.image !== "") {

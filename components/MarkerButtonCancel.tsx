@@ -1,12 +1,12 @@
-import { type SET_FUNCTION } from "../ts/Player.ts";
+import type { Dispatch, SetStateAction } from "react";
 
 export default function MarkerButtonCancel({
-  callbackDisplay,
+  setMarkerButtonListIndex,
 }: {
-  callbackDisplay: SET_FUNCTION;
+  setMarkerButtonListIndex: Dispatch<SetStateAction<number | null>>;
 }) {
   const handleClick = () => {
-    callbackDisplay(0);
+    if (setMarkerButtonListIndex !== null) setMarkerButtonListIndex(null);
   };
 
   return (
