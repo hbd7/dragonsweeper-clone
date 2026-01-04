@@ -1,8 +1,8 @@
 import type { PLAYER_DATA } from "../ts/Player.ts";
 import type Player from "../ts/Player.ts";
-import EnergyList from "./EnergyList.tsx";
-import ExperienceList from "./ExperienceList.tsx";
-import Hero from "./Hero.tsx";
+import EnergyList from "./StatsBarEnergyList.tsx";
+import ExperienceList from "./StatsBarExperienceList.tsx";
+import Hero from "./StatsBarHero.tsx";
 
 export default function StatsBar({
   player,

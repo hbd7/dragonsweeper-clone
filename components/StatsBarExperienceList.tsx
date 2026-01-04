@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 import type { PLAYER_DATA } from "../ts/Player.ts";
-import Experience from "./Experience.tsx";
+import Experience from "./StatsBarExperience.tsx";
 
 export default function ExperienceList({
   playerData,

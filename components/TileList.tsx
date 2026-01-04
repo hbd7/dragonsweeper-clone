@@ -1,6 +1,6 @@
 import MarkerButtonList from "./MarkerButtonList.tsx";
 import generateTiles from "../ts/GenerateTiles.ts";
-import { createTileClass } from "./CreateTileClass.tsx";
+import { createTileClass } from "./TileCreateTileClass.tsx";
 import { useEffect, useState, type JSX } from "react";
 import type Player from "../ts/Player.ts";
 import TileBasic from "../ts/TileBasic.ts";
