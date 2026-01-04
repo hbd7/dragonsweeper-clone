@@ -20,6 +20,7 @@ export default class TileBasic {
   surroundingTilesExtended: number[] = [];
 
   player: Player;
+  wasVisibleBeforeThisClick = false;
 
   constructor(
     player: Player,
@@ -97,6 +98,8 @@ export default class TileBasic {
   };
 
   handleActivate = () => {
+    this.wasVisibleBeforeThisClick = this.isVisible;
+
     this.canCollectReward = true;
     this.isVisible = true;
 

@@ -191,3 +191,5 @@ TILE_DATA[nextId].trackerGroups = [];
 TILE_DATA[nextId].name = "Wall";
 export const REWARD_WALL = 1;
 TILE_DATA[nextId].howManyToGenerate = 6;
+export const TILE_IMAGE_WALL_2 = "./images/tiles/tile_wall2.png";
+export const TILE_IMAGE_WALL_3 = "./images/tiles/tile_wall3.png";
