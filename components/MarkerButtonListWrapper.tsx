@@ -38,14 +38,12 @@ export default function MarkerListWrapper({
         left = rect.right;
       } else {
         left = rect.left - (rectMarker?.width ?? 0);
-        console.log(`rect2 width=${rectMarker?.width}`);
       }
 
       if (markerButtonListIndex / TILES_HEIGHT <= TILES_HEIGHT / 2) {
         top = rect.top;
       } else {
         top = rect.bottom - (rectMarker?.height ?? 0);
-        console.log(`rect2 height=${rectMarker?.height}`);
       }
 
       setPosition({ top: top, left: left });

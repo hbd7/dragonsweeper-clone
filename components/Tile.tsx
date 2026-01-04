@@ -14,12 +14,14 @@ export default function Tile({
   tile,
   updateMe,
   markerToShow,
+  markerButtonListIndex,
   setMarkerButtonListIndex,
   setRef,
 }: {
   tile: TileBasic;
   updateMe: () => void;
   markerToShow: number;
+  markerButtonListIndex: number | null;
   setMarkerButtonListIndex: Dispatch<SetStateAction<number | null>>;
   setRef: (ref: HTMLDivElement) => void;
 }) {
@@ -27,6 +29,8 @@ export default function Tile({
 
   // DEBUG ONLY
   // tile.isVisible = true;
+
+  const isThisTheCurrentTileBeingMarked = markerButtonListIndex == tile.index;
 
   const handleClick = () => {
     tile.handleClick();
@@ -38,9 +42,16 @@ export default function Tile({
     // Do popup menu for marking
     e.preventDefault();
 
-    if (tile.isVisible) return;
+    if (tile.isVisible) {
+      setMarkerButtonListIndex(null);
+      return;
+    }
 
-    setMarkerButtonListIndex(tile.index);
+    if (isThisTheCurrentTileBeingMarked) {
+      setMarkerButtonListIndex(null);
+    } else {
+      setMarkerButtonListIndex(tile.index);
+    }
   };
 
   const generateButtonInner = () => {
@@ -49,7 +60,11 @@ export default function Tile({
 
     if (!tile.isVisible) {
       return (
-        <div className="tile-hidden">
+        <div
+          className={`tile-hidden${
+            isThisTheCurrentTileBeingMarked ? " being-marked" : ""
+          }`}
+        >
           {markerToShow == 100 ? (
             <span>*</span>
           ) : markerToShow > 0 ? (

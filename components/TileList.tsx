@@ -65,6 +65,7 @@ export default function TileList({ player }: { player: Player }) {
         updateMe,
         tilesReact[i],
         markerToShow[i],
+        markerButtonListIndex,
         setMarkerButtonListIndex,
         setTileRef
       )

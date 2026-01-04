@@ -19,6 +19,7 @@ export const createTileClass = (
   updateMe: () => void,
   tilesReact: TileBasic,
   markerToShow: number,
+  markerButtonListIndex: number | null,
   setMarkerButtonListIndex: Dispatch<SetStateAction<number | null>>,
   setRef: (ref: HTMLDivElement) => void
 ) => {
@@ -71,6 +72,7 @@ export const createTileClass = (
       key={tile.uniqueId}
       updateMe={updateMe}
       markerToShow={markerToShow}
+      markerButtonListIndex={markerButtonListIndex}
       setMarkerButtonListIndex={setMarkerButtonListIndex}
       setRef={setRef}
     />

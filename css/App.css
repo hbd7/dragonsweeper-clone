@@ -47,6 +47,11 @@ main {
   border: #293333 2px solid;
 }
 
+.tile-list .tile:hover:has(img),
+.tile-list .tile:hover:has(.tile-hidden) {
+  border-color: #feb700;
+}
+
 .tile > div {
   width: 100%;
   height: 100%;
@@ -72,7 +77,11 @@ main {
 
 .tile > div.tile-hidden span {
   color: #319ced;
-  font-size: 3rem;
+  font-size: 2rem;
+}
+
+.tile > div.tile-hidden.being-marked {
+  border: #c72ff5 2px solid;
 }
 
 .tile > div:has(img) > span {
