@@ -20,8 +20,6 @@ export default class TileWall extends TileBasic {
     y: number
   ) {
     super(player, id, energyChange, x, y, TILE_DATA[ID_WALL].image);
-
-    this.isVisible = true;
   }
 
   handleActivateExtended = () => {
