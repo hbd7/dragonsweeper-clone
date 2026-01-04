@@ -108,10 +108,12 @@ main {
     "hero experience";
   grid-template-columns: 1fr 5fr;
   border: #293333 2px solid;
+  text-align: left;
 }
 
 .hero-bar {
   grid-area: hero;
+  text-align: center;
 }
 
 .hero-bar > img.can-level-up {
