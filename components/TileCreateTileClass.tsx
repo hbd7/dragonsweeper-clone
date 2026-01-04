@@ -1,5 +1,4 @@
 import type Player from "../ts/Player.ts";
-import type { Dispatch, SetStateAction } from "react";
 import * as CONST from "../constants/TileData.ts";
 import TileBasic from "../ts/TileBasic.ts";
 import TileVision from "../ts/TileVision.ts";
@@ -9,6 +8,10 @@ import TileDragon from "../ts/TileDragon.ts";
 import TileMimic from "../ts/TileMimic.ts";
 import TileVisionScroll from "../ts/TileVisionScroll.ts";
 import TileLich from "../ts/TileLich.ts";
+import TileMine from "../ts/TileMine.ts";
+import TileChestEnergy from "../ts/TileChestEnergy.ts";
+import TileChest from "../ts/TileChest.ts";
+import TileDragonEgg from "../ts/TileDragonEgg.ts";
 
 export const createTileClass = (
   index: number,
@@ -66,6 +69,18 @@ export const createTileClass = (
       break;
     case CONST.ID_LICH:
       tile = new TileLich(player, tileId, energyChange, x, y, tilesClassArray);
+      break;
+    case CONST.ID_MINE:
+      tile = new TileMine(player, tileId, energyChange, x, y);
+      break;
+    case CONST.ID_CHEST:
+      tile = new TileChest(player, tileId, energyChange, x, y);
+      break;
+    case CONST.ID_CHEST_ENERGY:
+      tile = new TileChestEnergy(player, tileId, energyChange, x, y);
+      break;
+    case CONST.ID_DRAGON_EGG:
+      tile = new TileDragonEgg(player, tileId, energyChange, x, y);
       break;
     default:
       tile = new TileBasic(player, tileId, energyChange, x, y, image);
