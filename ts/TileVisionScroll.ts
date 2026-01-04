@@ -17,7 +17,7 @@ export default class TileVisionScroll extends TileBasic {
     this.allTiles = allTiles;
   }
 
-  handleActivateExtended = () => {
+  handleCollectRewardExtended = () => {
     const notVisibleTiles: TileBasic[] = this.allTiles.filter((tile) => {
       return !tile.isVisible;
     });
