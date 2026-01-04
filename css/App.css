@@ -107,6 +107,7 @@ main {
     "hero energy"
     "hero experience";
   grid-template-columns: 1fr 5fr;
+  gap: 0px;
   border: #293333 2px solid;
   text-align: left;
 }
@@ -155,4 +156,42 @@ main {
 
 .experience-bar > .even {
   top: +13px;
+}
+
+.marker-button-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 0px;
+}
+
+.marker-button-list.hidden {
+  visibility: hidden;
+}
+
+.marker-button-list .marker-button {
+  color: #efda67;
+  background-color: #c7a381;
+  width: 2rem;
+  height: 2rem;
+  border: #252525 2px solid;
+  cursor: pointer;
+}
+
+.marker-button-list .button-x {
+  color: #319ced;
+  font-size: 2rem;
+  line-height: 2rem;
+}
+
+.marker-button-list .button-remove {
+  color: #d8d8d8;
+  background-color: #d62222;
+}
+
+.marker-button-list .button-cancel {
+  color: #d8d8d8;
+  background-color: #3e5f80;
+  width: auto;
+  grid-area: 4 / 2 / span 1 / span 3;
 }
