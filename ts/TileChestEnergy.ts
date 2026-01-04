@@ -1,7 +1,7 @@
 import TileBasic from "./TileBasic.ts";
 import {
   TILE_DATA,
-  ID_CHEST,
+  ID_CHEST_ENERGY,
   ID_ENERGY_SCROLL,
 } from "../constants/TileData.ts";
 import type Player from "./Player.ts";
@@ -16,7 +16,7 @@ export default class TileChestEnergy extends TileBasic {
     x: number,
     y: number
   ) {
-    super(player, id, energyChange, x, y, TILE_DATA[ID_CHEST].image);
+    super(player, id, energyChange, x, y, TILE_DATA[ID_CHEST_ENERGY].image);
     this.isVisible = true;
   }
 
