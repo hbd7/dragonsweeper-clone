@@ -1,8 +1,9 @@
 import type { Dispatch, SetStateAction } from "react";
 
 export const EXPERIENCE_TO_NEXT_LEVEL = [4];
+const MAX_EXPERIENCE_TO_NEXT_LEVEL = 35;
 for (let i = 5; i < 100; i += 2) {
-  EXPERIENCE_TO_NEXT_LEVEL.push(i);
+  EXPERIENCE_TO_NEXT_LEVEL.push(Math.min(i, MAX_EXPERIENCE_TO_NEXT_LEVEL));
 }
 
 export const BASE_ENERGY = 5;
