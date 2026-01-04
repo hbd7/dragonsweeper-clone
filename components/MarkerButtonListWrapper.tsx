@@ -21,6 +21,11 @@ export default function MarkerListWrapper({
   const [position, setPosition] = useState({ top: 0, left: 0 });
 
   const reposition = () => {
+    if (currentMarkerButtonListIndex === null) {
+      setPosition({ top: -1000000000000, left: -1000000000000 });
+      return;
+    }
+
     if (markerButtonListIndex !== null && wrapperRef !== null) {
       const rect =
         tileRef.current[markerButtonListIndex].getBoundingClientRect();
