@@ -1,5 +1,4 @@
 import type { Dispatch, SetStateAction } from "react";
-import type TileBasic from "../ts/TileBasic.ts";
 import MarkerButton from "./MarkerButton.tsx";
 import MarkerButtonCancel from "./MarkerButtonCancel.tsx";
 import MarkerButtonRemove from "./MarkerButtonRemove.tsx";

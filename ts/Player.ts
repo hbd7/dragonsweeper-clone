@@ -2,6 +2,7 @@ import type { Dispatch, SetStateAction } from "react";
 
 export const EXPERIENCE_TO_NEXT_LEVEL = [4];
 const MAX_EXPERIENCE_TO_NEXT_LEVEL = 35;
+const MAX_ENERGY_POSSIBLE = 15;
 for (let i = 5; i < 100; i += 2) {
   EXPERIENCE_TO_NEXT_LEVEL.push(Math.min(i, MAX_EXPERIENCE_TO_NEXT_LEVEL));
 }
@@ -103,7 +104,9 @@ export default class Player {
     this.level++;
     this.setExperienceMax(EXPERIENCE_TO_NEXT_LEVEL[this.level]);
 
-    this.setEnergyMax(BASE_ENERGY + Math.floor(this.level / 2));
+    this.setEnergyMax(
+      BASE_ENERGY + Math.min(Math.floor(this.level / 2), MAX_ENERGY_POSSIBLE)
+    );
     this.heal();
   }
 }

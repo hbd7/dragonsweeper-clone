@@ -1,6 +1,4 @@
 import type { Dispatch, SetStateAction } from "react";
-import { type SET_FUNCTION } from "../ts/Player.ts";
-import type TileBasic from "../ts/TileBasic.ts";
 
 export default function MarkerButton({
   value,
