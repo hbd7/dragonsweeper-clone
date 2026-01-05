@@ -15,6 +15,7 @@ export type SET_FUNCTIONS = {
   funcSetEnergyMax: SET_FUNCTION;
   funcSetExperience: SET_FUNCTION;
   funcSetExperienceMax: SET_FUNCTION;
+  funcDialogMessage: Dispatch<SetStateAction<"win" | "lose" | null>>;
 };
 export type PLAYER_DATA = {
   energy: number;
@@ -34,17 +35,20 @@ export default class Player {
   #funcSetEnergyMax;
   #funcSetExperience;
   #funcSetExperienceMax;
+  #funcDialogMessage;
 
   constructor({
     funcSetEnergy: funcSetEnergy,
     funcSetEnergyMax: funcSetEnergyMax,
     funcSetExperience: funcSetExperience,
     funcSetExperienceMax: funcSetExperienceMax,
+    funcDialogMessage: funcDialogMessage,
   }: SET_FUNCTIONS) {
     this.#funcSetEnergy = funcSetEnergy;
     this.#funcSetEnergyMax = funcSetEnergyMax;
     this.#funcSetExperience = funcSetExperience;
     this.#funcSetExperienceMax = funcSetExperienceMax;
+    this.#funcDialogMessage = funcDialogMessage;
   }
 
   setEnergy(newEnergy: number) {
@@ -65,7 +69,7 @@ export default class Player {
 
     if (this.energy < 0) {
       // Must be below 0. Being at 0 is not a lose condition
-      // Implement lose the game
+      this.#funcDialogMessage("lose");
     }
   }
 

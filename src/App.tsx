@@ -8,6 +8,7 @@ import Player, {
   type PLAYER_DATA,
   type SET_FUNCTIONS,
 } from "../ts/Player.ts";
+import DialogMessage from "../components/DialogMessage.tsx";
 
 function App() {
   const [energy, setEnergy] = useState<number>(BASE_ENERGY);
@@ -16,12 +17,16 @@ function App() {
   const [experienceMax, setExperienceMax] = useState<number>(
     EXPERIENCE_TO_NEXT_LEVEL[0]
   );
+  const [dialogMessage, setDialogMessage] = useState<"win" | "lose" | null>(
+    null
+  );
 
   const funcs: SET_FUNCTIONS = {
     funcSetEnergy: setEnergy,
     funcSetEnergyMax: setEnergyMax,
     funcSetExperience: setExperience,
     funcSetExperienceMax: setExperienceMax,
+    funcDialogMessage: setDialogMessage,
   };
 
   const playerRef = useRef<Player | null>(null);
@@ -43,6 +48,12 @@ function App() {
         <TileList player={player} />
         <StatsBar player={player} playerData={playerData} />
       </main>
+      <div
+        className="dialogue-wrapper"
+        style={{ display: dialogMessage === null ? "none" : "flex" }}
+      >
+        <DialogMessage message={dialogMessage} />
+      </div>
     </>
   );
 }
