@@ -15,8 +15,7 @@ export default class TileDragon extends TileBasic {
   }
 
   handleCollectRewardExtended = () => {
-    // TODO: win
-    // Check to make sure not dead first before giving win
+    this.player.weWon();
 
     return this;
   };

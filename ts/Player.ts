@@ -77,6 +77,10 @@ export default class Player {
     return this.energy >= 0;
   }
 
+  weWon() {
+    this.#funcDialogMessage("win");
+  }
+
   setExperience(newExperience: number) {
     this.experience = newExperience;
     this.#funcSetExperience(newExperience);
