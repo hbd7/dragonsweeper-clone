@@ -3,6 +3,8 @@ import { tilesClassArray } from "../components/TileList.tsx";
 import Player from "./Player.ts";
 
 export default class TileBasic {
+  allTiles: TileBasic[] = [];
+
   id: number;
   energyChange: number;
   x: number;
@@ -28,7 +30,8 @@ export default class TileBasic {
     energyChange: number,
     x: number,
     y: number,
-    image: string
+    image: string,
+    allTiles?: TileBasic[]
   ) {
     this.id = id;
     this.energyChange = energyChange;
@@ -38,6 +41,8 @@ export default class TileBasic {
     this.uniqueId = `(${this.x},${this.y})`;
     this.index = y * CONST.TILES_WIDTH + x;
     this.player = player;
+
+    if (allTiles) this.allTiles = allTiles;
 
     if (!id) {
       this.hasCollectedReward = true;
@@ -112,16 +117,58 @@ export default class TileBasic {
     return this.handleActivateExtended();
   };
 
+  handleEnergyScroll = () => {
+    if (this.isVisible) {
+      this.player.heal();
+      this.setToEmpty();
+
+      return null;
+    }
+
+    this.isVisible = true;
+  };
+
+  handleGnome = () => {
+    if (this.isVisible && this.canCollectReward) {
+      this.handleCollectReward();
+      return;
+    }
+
+    this.isVisible = true;
+
+    if (!this.allTiles) {
+      console.error("Gnome object was not passed allTiles[]");
+      return;
+    }
+
+    const emptyHiddenTiles = this.allTiles.filter((tile) => {
+      return !tile.isVisible && tile.id == 0;
+    });
+
+    if (emptyHiddenTiles.length == 0) {
+      this.canCollectReward = true;
+      this.hasCollectedReward = false;
+      this.energyChange = CONST.REWARD_GNOME;
+      return;
+    }
+
+    this.id = 0;
+    this.image = "";
+
+    const newGnomeIndex = Math.floor(Math.random() * emptyHiddenTiles.length);
+    emptyHiddenTiles[newGnomeIndex].id = CONST.ID_GNOME;
+    emptyHiddenTiles[newGnomeIndex].image =
+      CONST.TILE_DATA[CONST.ID_GNOME].image;
+  };
+
   handleClick = () => {
     if (this.id === CONST.ID_ENERGY_SCROLL) {
-      if (this.isVisible) {
-        this.player.heal();
-        this.setToEmpty();
+      this.handleEnergyScroll();
+      return null;
+    }
 
-        return null;
-      }
-
-      this.isVisible = true;
+    if (this.id === CONST.ID_GNOME && !this.canCollectReward) {
+      this.handleGnome();
       return null;
     }
 

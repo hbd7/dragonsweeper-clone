@@ -12,6 +12,7 @@ import TileMine from "../ts/TileMine.ts";
 import TileChestEnergy from "../ts/TileChestEnergy.ts";
 import TileChest from "../ts/TileChest.ts";
 import TileDragonEgg from "../ts/TileDragonEgg.ts";
+import TileWall from "../ts/TileWall.ts";
 
 export const createTileClass = (
   index: number,
@@ -82,8 +83,30 @@ export const createTileClass = (
     case CONST.ID_DRAGON_EGG:
       tile = new TileDragonEgg(player, tileId, energyChange, x, y);
       break;
+    case CONST.ID_WALL:
+      tile = new TileWall(player, tileId, energyChange, x, y);
+      break;
+    case CONST.ID_GNOME:
+      tile = new TileBasic(
+        player,
+        tileId,
+        energyChange,
+        x,
+        y,
+        image,
+        tilesClassArray
+      );
+      break;
     default:
-      tile = new TileBasic(player, tileId, energyChange, x, y, image);
+      tile = new TileBasic(
+        player,
+        tileId,
+        energyChange,
+        x,
+        y,
+        image,
+        tilesClassArray
+      );
   }
   tile.totalSurroundingDamage = surroundingValue;
   tile.setSurroundingTiles(myNeighbours);
