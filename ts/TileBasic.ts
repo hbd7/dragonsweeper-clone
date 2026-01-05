@@ -103,8 +103,6 @@ export default class TileBasic {
   };
 
   handleActivate = () => {
-    this.wasVisibleBeforeThisClick = this.isVisible;
-
     this.canCollectReward = true;
     this.isVisible = true;
 
@@ -162,6 +160,8 @@ export default class TileBasic {
   };
 
   handleClick = () => {
+    this.wasVisibleBeforeThisClick = this.isVisible;
+
     if (this.id === CONST.ID_ENERGY_SCROLL) {
       this.handleEnergyScroll();
       return null;

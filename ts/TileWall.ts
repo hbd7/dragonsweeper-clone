@@ -23,7 +23,10 @@ export default class TileWall extends TileBasic {
   }
 
   handleActivateExtended = () => {
-    if (!this.wasVisibleBeforeThisClick) return this;
+    if (!this.wasVisibleBeforeThisClick) {
+      this.canCollectReward = false;
+      return this;
+    }
 
     this.clicksLeft--;
     switch (this.clicksLeft) {
